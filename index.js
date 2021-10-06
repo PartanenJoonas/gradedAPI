@@ -69,11 +69,37 @@ app.post('/PostItem', upload.array('images', 4), (req, res, next) => {
         res.sendStatus(201)
 })
 
-app.get('/GetItem/:location?/:category?/:date?', (req, res) => {
+app.get('/GetItemByLocation/:location', (req, res) => {
     
-    const found_items = items.filter(location => items.location === req.params)
-    console.log(found_items)
-    res.send(found_items)
+    if(req.params.location != undefined){
+        const found_items = items.filter(e => e.location === req.params.location)
+        console.log(found_items)
+        res.send(found_items)
+    }else {
+        res.sendStatus(404)
+    }
+})
+
+app.get('/GetItemByCategory/:category', (req, res) => {
+    
+    if(req.params.category != undefined){
+        const found_items = items.filter(e => e.category === req.params.category)
+        console.log(found_items)
+        res.send(found_items)
+    }else {
+        res.sendStatus(404)
+    }
+})
+
+app.get('/GetItemByDate/:date', (req, res) => {
+    
+    if(req.params.date != undefined){
+        const found_items = items.filter(e => e.date === req.params.date)
+        console.log(found_items)
+        res.send(found_items)
+    }else {
+        res.sendStatus(404)
+    }
 })
 
 app.post('/DeleteItem', (req, res) => {
