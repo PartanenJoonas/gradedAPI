@@ -129,7 +129,7 @@ app.post('/SignUp', (req, res) => {
 
 app.get('/LogIn', passport.authenticate('basic', {session: false}), (req, res) => {
     //Doesnt work
-})
+}) 
 
 app.put('/ModifyItem', (req, res) => {
     /*items.findIndex(d => d.id === req.body.id);
