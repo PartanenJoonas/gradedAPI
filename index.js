@@ -13,6 +13,8 @@ let items = [];
 
 app.use(bodyParser.json());
 
+app.set('port', process.env.PORT || 3000)
+
 passport.use(new BasicStrategy(
     (username, password, done) => {
         const searchResult = userDB.find(user => {
@@ -32,10 +34,6 @@ passport.use(new BasicStrategy(
         }
     }
 ));
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
 app.get('/GetItems', (req, res) => {
     res.json(items);
@@ -102,8 +100,17 @@ app.get('/GetItemByDate/:date', (req, res) => {
     }
 })
 
-app.post('/DeleteItem', (req, res) => {
-
+app.put('/DeleteItem', (req, res) => {
+    /*itemIndex = items.findIndex(d => d.id === req.body.id);
+    if (req.body.id != undefined)
+    { 
+        //res.json(items)
+        items.splice[itemIndex]
+    }
+    else
+    { 
+        res.sendStatus(404);
+    }*/
 })
 
 app.post('/SignUp', (req, res) => {
@@ -121,14 +128,33 @@ app.post('/SignUp', (req, res) => {
 })
 
 app.get('/LogIn', passport.authenticate('basic', {session: false}), (req, res) => {
-    res.send("hello")
+    //Doesnt work
 })
 
 app.put('/ModifyItem', (req, res) => {
-
+    /*items.findIndex(d => d.id === req.body.id);
+    if(items.index === undefined) {
+        res.sendStatus(404);
+    } else {
+        const newItem = {
+            "ID": req.body.id,
+            "title": req.body.title,
+            "description": req.body.description,
+            "category": req.body.category,
+            "location": req.body.location,
+            "price": req.body.price,
+            "date": req.body.date,
+            "deliveryType": req.body.deliveryType,
+            "sellerName": req.body.sellerName,
+            "sellerEmail": req.body.sellerEmail,
+          }
+        
+        items.push(newItem);
+        res.sendStatus(201)
+    }*/
 })
 
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+app.listen(app.get('port'), () => {
+  console.log(`running on port `, app.get('port'))
 })
