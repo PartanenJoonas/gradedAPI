@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "",
+  "description": "gradedAPI",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,5 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PartanenJoonas/gradedAPI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PartanenJoonas/gradedAPI/issues"
+  },
+  "homepage": "https://github.com/PartanenJoonas/gradedAPI#readme"
 }

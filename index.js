@@ -20,16 +20,31 @@ passport.use(new BasicStrategy(
         }
     }));
 
+const items = [
+    {name: 'Sohva', title: 'huonekalu', description: 'divaanisohva'}
+];
+
+const users = [
+    {}
+];
+
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
 app.get('/GetItems', (req, res) => {
-
+    res.json(items);
+    if (items == "") {
+        res.sendStatus(404);
+    }
+    
 })
 
 app.post('/PostItem', (req, res) => {
-    
+    items.push({ name: req.body.name, 
+        title: req.body.title, 
+        description: req.body.description })
+    res.sendStatus(201);
 })
 
 app.get('/GetItem/:location?/:category?/:date?', (req, res) => {
