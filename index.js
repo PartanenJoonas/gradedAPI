@@ -10,16 +10,27 @@ app.get('/GetItems', (req, res) => {
 
 })
 
+app.post('/PostItem', (req, res) => {
+    
+})
+
 app.get('/GetItem/:location?/:category?/:date?', (req, res) => {
 
 })
 
+app.post('/DeleteItem', (req, res) => {
+
+})
 
 app.post('/SignUp', (req, res) => {
 
 })
 
 app.post('/LogIn', (req, res) => {
+
+})
+
+app.put('/ModifyItem', (req, res) => {
 
 })
 
