@@ -33,18 +33,6 @@ passport.use(new BasicStrategy(
     }
 ));
 
-const items = [
-    {name: 'Sohva', title: 'huonekalu', description: 'divaanisohva'}
-];
-
-const users = [
-    {}
-];
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
 app.get('/GetItems', (req, res) => {
     res.json(items);
     
@@ -84,8 +72,17 @@ app.get('/GetItem/:location?/:category?/:date?', (req, res) => {
     res.send(found_items)
 })
 
-app.post('/DeleteItem', (req, res) => {
-
+app.put('/DeleteItem', (req, res) => {
+    const itemIndex = items.findIndex(d => d.id === req.body.id);
+    if (itemIndex === req.body.id)
+    { 
+        res.json(items)
+        items.splice[itemIndex]
+    }
+    else
+    { 
+        res.sendStatus(404);
+    }
 })
 
 app.post('/SignUp', (req, res) => {
@@ -107,7 +104,27 @@ app.get('/LogIn', passport.authenticate('basic', {session: false}), (req, res) =
 })
 
 app.put('/ModifyItem', (req, res) => {
-
+    const itemID = parseInt(req.get('ID'))
+    const item = items.find(d => d.id === itemID);
+    if(item === undefined) {
+        res.sendStatus(404);
+    } else {
+        const newItem = {
+            "ID": req.body.id,
+            "title": req.body.title,
+            "description": req.body.description,
+            "category": req.body.category,
+            "location": req.body.location,
+            "price": req.body.price,
+            "date": req.body.date,
+            "deliveryType": req.body.deliveryType,
+            "sellerName": req.body.sellerName,
+            "sellerEmail": req.body.sellerEmail,
+          }
+        
+        items.push(newItem);
+        res.sendStatus(201)
+    }
 })
 
 
