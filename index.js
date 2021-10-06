@@ -29,20 +29,20 @@ passport.use(new BasicStrategy(
         } else {
         done(null, false);
         }
-    }));
+    }
+));
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
 app.get('/GetItems', (req, res) => {
-
+    res.json(items);
 })
 
-app.post('/PostItem', passport.authenticate('basic', {session:false}), (req, res) => {
+app.post('/PostItem', (req, res) => {
     
-    /*const newItem = [
-        {
+    const newItem = {
             "ID": req.body.id,
             "title": req.body.title,
             "description": req.body.description,
@@ -54,8 +54,8 @@ app.post('/PostItem', passport.authenticate('basic', {session:false}), (req, res
             "sellerName": req.body.sellerName,
             "sellerEmail": req.body.sellerEmail,
           }
-        ]
-        items.push(newItem);*/
+        
+        items.push(newItem);
         res.sendStatus(201)
 })
 
@@ -81,8 +81,8 @@ app.post('/SignUp', (req, res) => {
     res.sendStatus(201);
 })
 
-app.post('/LogIn', (req, res) => {
-
+app.get('/LogIn', passport.authenticate('basic', {session: false}), (req, res) => {
+    res.sendStatus(200);
 })
 
 app.put('/ModifyItem', (req, res) => {
