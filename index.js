@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const passport = require('passport');
-const BasicStrategy = require('passport-http').BasicStrategy;
+const BasicStrategy = require('passport-http').BasicStrategy
 const bcrypt = require('bcryptjs')
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
@@ -26,6 +26,7 @@ passport.use(new BasicStrategy(
             console.log(searchResult);
         if (searchResult != undefined) {
             done(null, searchResult);
+            console.log("asd")
         } else {
         done(null, false);
         }
@@ -38,9 +39,11 @@ app.get('/', (req, res) => {
 
 app.get('/GetItems', (req, res) => {
     res.json(items);
+    
 })
 
-app.post('/PostItem', (req, res) => {
+app.post('/PostItem', upload.array('images', 4), (req, res, next) => {
+
     
     const newItem = {
             "ID": req.body.id,
@@ -48,6 +51,13 @@ app.post('/PostItem', (req, res) => {
             "description": req.body.description,
             "category": req.body.category,
             "location": req.body.location,
+            "images": 
+                {
+                  "image1": req.files[0],
+                  "image3": req.files[1],
+                  "image2": req.files[2],
+                  "image4": req.files[3]
+                },
             "price": req.body.price,
             "date": req.body.date,
             "deliveryType": req.body.deliveryType,
@@ -60,7 +70,10 @@ app.post('/PostItem', (req, res) => {
 })
 
 app.get('/GetItem/:location?/:category?/:date?', (req, res) => {
-
+    
+    const found_items = items.filter(location => items.location === req.params)
+    console.log(found_items)
+    res.send(found_items)
 })
 
 app.post('/DeleteItem', (req, res) => {
@@ -82,7 +95,7 @@ app.post('/SignUp', (req, res) => {
 })
 
 app.get('/LogIn', passport.authenticate('basic', {session: false}), (req, res) => {
-    res.sendStatus(200);
+    res.send("hello")
 })
 
 app.put('/ModifyItem', (req, res) => {
