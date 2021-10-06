@@ -99,8 +99,8 @@ app.get('/GetItemByDate/:date', (req, res) => {
 })
 
 app.put('/DeleteItem', (req, res) => {
-    const itemIndex = items.findIndex(d => d.id === req.body.id);
-    if (itemIndex === req.body.id)
+    items.findIndex(d => d.id === req.body.id);
+    if (items.index === req.body.id)
     { 
         res.json(items)
         items.splice[itemIndex]
@@ -130,9 +130,8 @@ app.get('/LogIn', passport.authenticate('basic', {session: false}), (req, res) =
 })
 
 app.put('/ModifyItem', (req, res) => {
-    const itemID = parseInt(req.get('ID'))
-    const item = items.find(d => d.id === itemID);
-    if(item === undefined) {
+    items.findIndex(d => d.id === req.body.id);
+    if(items.index === undefined) {
         res.sendStatus(404);
     } else {
         const newItem = {
